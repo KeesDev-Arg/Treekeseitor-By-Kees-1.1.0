@@ -1,0 +1,89 @@
+# ==========================================================
+#  Treekeseitor by Kees  -  Paper 26.3
+# ==========================================================
+
+# SNEAK_DISABLES = talas todo, salvo que vayas agachado (recomendado)
+# SNEAK_ENABLES  = solo tala el árbol completo si vas agachado
+# ALWAYS         = siempre tala el árbol completo
+activation-mode: SNEAK_DISABLES
+
+# Mundos donde NO funciona
+disabled-worlds: []
+
+# Solo funciona con hacha en la mano
+require-axe: true
+
+# ¿Funciona en creativo?
+work-in-creative: false
+
+# --- Límites del árbol ---
+max-logs: 200          # máximo de troncos por hachazo
+max-radius: 10         # distancia horizontal máxima desde el tronco roto
+max-height: 48         # altura máxima sobre el tronco roto
+only-above: true       # no corta troncos por debajo del que rompes
+same-species-only: true  # roble solo con roble, abedul con abedul, etc.
+
+# Anti-exploit: el árbol debe tener al menos esta cantidad de hojas NATURALES
+# (las hojas colocadas por jugadores no cuentan). Así una torre de troncos
+# construida a mano NO se tala entera (importante para que no abusen del
+# pago de Jobs).
+min-leaves: 5
+
+# --- Hojas ---
+# Al terminar los troncos, las hojas del árbol caen de golpe (con sus drops normales:
+# brotes, palos, manzanas). Solo se quitan hojas naturales que dependen de ESTE árbol;
+# las de un árbol vecino no se tocan.
+leaves:
+  enabled: true
+  max: 500          # máximo de hojas por árbol
+  per-tick: 40      # hojas por tick (0 = todas de golpe)
+  drops: true       # false = las hojas desaparecen sin soltar nada
+
+# --- Drops ---
+# ORIGIN  = todos los ítems (troncos + hojas) se juntan en pilas completas en el tronco base
+# PLAYER  = van directo al inventario (lo que no quepa cae a tus pies)
+# NATURAL = cada bloque suelta lo suyo donde estaba (comportamiento vanilla)
+# ORIGIN y PLAYER usan MUCHAS menos entidades de ítem, que es lo que más pesa en el servidor.
+drops:
+  mode: ORIGIN
+
+# --- Efectos (sonido y partículas) ---
+# Se reproduce UN sonido y UN estallido de partículas por tanda de bloques (no uno por bloque),
+# solo para jugadores cercanos. Cada jugador puede apagarlos con /treekeseitor effects.
+# Los sonidos son claves de Minecraft (ej. block.wood.break). Si pones una inválida, no suena nada.
+effects:
+  enabled: true     # interruptor general del servidor
+  radius: 32        # a qué distancia los oyen/ven
+  sound:
+    enabled: true
+    volume: 1.0
+    logs: block.wood.break
+    leaves: block.grass.break
+    finish: block.wood.fall   # al terminar el árbol
+  particles:
+    enabled: true
+    count: 12       # partículas por estallido
+
+# --- Rendimiento ---
+# Troncos rotos por tick. 0 = todos de golpe. Más bajo = más suave y se ve el efecto.
+blocks-per-tick: 20
+
+# --- Herramienta ---
+protect-tool: true     # se detiene antes de que el hacha se rompa
+min-durability: 2      # durabilidad restante a partir de la cual se detiene
+
+# --- Replantar ---
+# Si el tronco roto era la base y hay tierra debajo, pone un brote.
+replant: false
+
+# --- Mensajes (MiniMessage) ---
+messages:
+  enabled: "<green>Treekeseitor <bold>activado</bold>."
+  disabled: "<red>Treekeseitor <bold>desactivado</bold>."
+  reloaded: "<green>Configuración recargada."
+  no-permission: "<red>No tienes permiso para eso."
+  players-only: "<red>Solo los jugadores pueden usar esto."
+  tool-low: "<yellow>Tu hacha casi se rompe, el Treekeseitor se detuvo."
+  effects-enabled: "<green>Sonidos y partículas <bold>activados</bold>."
+  effects-disabled: "<red>Sonidos y partículas <bold>desactivados</bold>."
+  usage: "<gray>Uso: <white>/treekeseitor [toggle|effects|reload]"

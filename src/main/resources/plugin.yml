@@ -1,0 +1,29 @@
+name: Treekeseitor
+version: '${version}'
+main: com.kees.treekeseitor.TreekeseitorPlugin
+api-version: '26.3'
+author: Kees
+description: Treekeseitor by Kees - tala el árbol completo de un hachazo. Compatible con Jobs (Woodcutter).
+
+# Jobs se carga antes para que sus listeners queden registrados antes que los nuestros.
+softdepend: [Jobs]
+
+commands:
+  treekeseitor:
+    description: Activa/desactiva el Treekeseitor o recarga la config
+    usage: /<command> [toggle|effects|reload]
+    aliases: [tk, tc, talar]
+
+permissions:
+  treekeseitor.use:
+    description: Permite talar árboles completos
+    default: true
+  treekeseitor.toggle:
+    description: Permite activar/desactivar el Treekeseitor para uno mismo
+    default: true
+  treekeseitor.effects:
+    description: Permite activar/desactivar los sonidos y partículas para uno mismo
+    default: true
+  treekeseitor.reload:
+    description: Permite recargar la configuración
+    default: op
